@@ -49,6 +49,8 @@ function transform(path) {
           result = Array.isArray(ctx) ?
             `[${ctx.map(x => k(x, root)).join(',')}]` :
             k(ctx, root);
+        } else if (typeof k === 'function') {
+          result = JSON.stringify(k(context, root)) || null;
         } else {
           result = JSON.stringify(query(k, getContext(k))) || null;
         }

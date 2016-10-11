@@ -34,6 +34,21 @@ test('simple transform', t => {
   t.deepEquals(transform(data), expected, 'should be equal');
 });
 
+test('simple transform with lambda', t => {
+  const transform = $('store')`{
+    "cheapBooks": ${ (ctx, root) => {
+      return ctx.book.filter(x => x.price < 9)
+    } },
+    "testNull": ${ () => {} }
+  }`;
+  const expected = {
+    cheapBooks: data.store.book.filter(x => x.price < 9),
+    testNull: null
+  };
+  t.plan(1);
+  t.deepEquals(transform(data), expected, 'should be equal');
+});
+
 test('simple filter transform', t => {
   const transform = $`{
     "cheapBooks": ${ $('store.book[?(@.price < 9)]')`` } 
