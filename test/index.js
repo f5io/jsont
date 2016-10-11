@@ -113,3 +113,14 @@ test('malformed error', t => {
   t.plan(1);
   t.throws(() => transform(data), expected, 'should throw an error');
 });
+
+test('nested error', t => {
+  const transform = $`{
+    "foo": ${ $('foo')`{
+      "bar": ${ 'baz' }
+    }` }
+  }`;
+  const expected = { foo: { bar: null } };
+  t.plan(1);
+  t.deepEquals(transform(data), expected, 'should be equal');
+});

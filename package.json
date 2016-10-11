@@ -1,6 +1,6 @@
 {
   "name": "@f5io/jsont",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Transform JSON Objects with ES6/2015 template strings",
   "main": "lib/index.js",
   "scripts": {
@@ -43,6 +43,6 @@
     "tape": "^4.6.0"
   },
   "dependencies": {
-    "@f5io/jsonpath": "^1.0.0"
+    "@f5io/jsonpath": "^1.0.1"
   }
 }
