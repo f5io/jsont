@@ -1,6 +1,7 @@
 import query from '@f5io/jsonpath';
 import { isUndefined, isMirror } from './utils';
 
+const isRoot = Symbol('root');
 const isRule = Symbol('rule');
 const rulePath = Symbol('rulePath');
 
@@ -10,16 +11,16 @@ function transform(path) {
 
   function handler(strings, ...keys) {
 
-    function rule(context, root = null) {
+    function rule(context, root = isRoot) {
       /**
        * If there is no root we are at the
        * top level of our transform.
        */
       let rootCtx;
-      if (path && !root) {
+      if (path && root === isRoot) {
         root = rootCtx = context;
         context = query(path, context);
-      } else if (!root) {
+      } else if (root === isRoot) {
         root = context;
       }
 
